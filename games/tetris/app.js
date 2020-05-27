@@ -31,7 +31,9 @@ const shapeClassNames = [
 	"tetromino-z",
 	"tetromino-t",
 	"tetromino-o",
-	"tetromino-i"
+	"tetromino-i",
+	"tetromino-s",
+	"tetromino-j"
 ];
 
 const lTetromino = [
@@ -68,7 +70,10 @@ const iTetromino = [
 	[width, width+1, width + 2, width + 3]
 ];
 
-const theTetrominoes = [ lTetromino, zTetromino, tTetromino, oTetromino, iTetromino ];
+const sTetromino = [];
+const jTetromino = [];
+
+const theTetrominoes = [ lTetromino, zTetromino, tTetromino, oTetromino, iTetromino /*, sTetromino, jTetromino */ ];
 
 let currentPosition = 4;
 let currentRotation = 0;

@@ -36,6 +36,8 @@
 .grid div.tetromino-i {
 	background: linear-gradient(135deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
 }
+.grid div.tetromino-s {}
+.grid div.tetromino-j {}
 
 .mini-grid {
 	width: 80px;
