@@ -19,10 +19,12 @@
 const grid = document.querySelector('.grid');
 const width = 10;
 const scoreDisplay = document.querySelector("#score");
+const linesDisplay = document.querySelector("#lines");
 const startButton = document.querySelector("#start");
 let nextRandom = 0;
 let timerId;
 let score = 0;
+let lines = 0;
 
 let squares = Array.from(document.querySelectorAll('.grid div'));
 
@@ -215,6 +217,8 @@ function addScore() {
 		if (row.every(index => { return squares[index].classList.contains("taken"); })) {
 			score += 10;
 			scoreDisplay.innerHTML = score;
+			lines += 1;
+			linesDisplay.innerHTML = lines;
 			row.forEach(index => { squares[index].className = ''; });
 			const squaresRemoved = squares.splice(i, width);
 			squares = squaresRemoved.concat(squares);
