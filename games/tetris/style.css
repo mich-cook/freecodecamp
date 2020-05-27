@@ -15,8 +15,26 @@
 	height: 20px;
 }
 
-.tetromino {
-	background-color: blue;
+.grid div.tetromino {
+	width: 16px;
+	height: 16px;
+	border: 2px outset rgba(255, 255, 255, 0.75);
+}
+
+.grid div.tetromino-l {
+	background: linear-gradient(135deg, rgba(255,187,54,1) 0%, rgba(224,118,0,1) 100%);
+}
+.grid div.tetromino-z {
+	background: linear-gradient(135deg, rgba(224,0,0,1) 0%, rgba(124,0,0,1) 100%);
+}
+.grid div.tetromino-t {
+	background: linear-gradient(135deg, rgba(135,102,203,1) 0%, rgba(56,0,119,1) 100%);
+}
+.grid div.tetromino-o {
+	background: linear-gradient(135deg, rgba(102,203,103,1) 0%, rgba(5,119,0,1) 100%);
+}
+.grid div.tetromino-i {
+	background: linear-gradient(135deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
 }
 
 .mini-grid {

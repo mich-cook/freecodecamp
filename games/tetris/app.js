@@ -26,12 +26,12 @@ let score = 0;
 
 let squares = Array.from(document.querySelectorAll('.grid div'));
 
-const colors = [
-	'orange',
-	'red',
-	'purple',
-	'green',
-	'blue'
+const shapeClassNames = [
+	"tetromino-l",
+	"tetromino-z",
+	"tetromino-t",
+	"tetromino-o",
+	"tetromino-i"
 ];
 
 const lTetromino = [
@@ -80,14 +80,14 @@ let current = theTetrominoes[tetOffset][currentRotation];
 function draw() {
 	current.forEach(index => {
 		squares[currentPosition + index].classList.add("tetromino");
-		squares[currentPosition + index].style.backgroundColor = colors[tetOffset];
+		squares[currentPosition + index].classList.add(shapeClassNames[tetOffset]);
 	});
 };
 
 function undraw() {
 	current.forEach(index => {
 		squares[currentPosition + index].classList.remove("tetromino");
-		squares[currentPosition + index].style.backgroundColor = '';
+		squares[currentPosition + index].classList.remove(shapeClassNames[tetOffset]);
 	});
 };
 
@@ -186,11 +186,11 @@ function displayShape() {
 	// clear grid
 	displaySquares.forEach(square => {
 		square.classList.remove("tetromino");
-		square.style.backgroundColor = '';
+		square.classList.remove(shapeClassNames[nextRandom]);
 	});
 	upNextTetrominoes[nextRandom].forEach(index => {
 		displaySquares[displayIndex + index].classList.add("tetromino");
-		displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
+		displaySquares[displayIndex + index].classList.add(shapeClassNames[nextRandom]);
 	});
 };
 
@@ -212,11 +212,7 @@ function addScore() {
 		if (row.every(index => { return squares[index].classList.contains("taken"); })) {
 			score += 10;
 			scoreDisplay.innerHTML = score;
-			row.forEach(index => {
-				squares[index].classList.remove("taken");
-				squares[index].classList.remove("tetromino");
-				squares[index].style.backgroundColor = '';
-			});
+			row.forEach(index => { squares[index].className = ''; });
 			const squaresRemoved = squares.splice(i, width);
 			squares = squaresRemoved.concat(squares);
 			squares.forEach(cell => grid.appendChild(cell));
