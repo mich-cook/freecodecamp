@@ -201,9 +201,11 @@ function displayShape() {
 
 startButton.addEventListener("click", () => {
 	if (timerId) {
+		startButton.textContent = "Start Game";
 		clearInterval(timerId);
 		timerId = null;
 	} else {
+		startButton.textContent = "Pause Game";
 		draw();
 		timerId = setInterval(moveDown, 1000);
 		nextRandom = Math.floor(Math.random()*theTetrominoes.length);
@@ -216,9 +218,9 @@ function addScore() {
 		const row = [ i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9 ];
 		if (row.every(index => { return squares[index].classList.contains("taken"); })) {
 			score += 10;
-			scoreDisplay.innerHTML = score;
+			scoreDisplay.textContent = score;
 			lines += 1;
-			linesDisplay.innerHTML = lines;
+			linesDisplay.textContent = lines;
 			row.forEach(index => { squares[index].className = ''; });
 			const squaresRemoved = squares.splice(i, width);
 			squares = squaresRemoved.concat(squares);
