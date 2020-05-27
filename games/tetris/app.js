@@ -189,10 +189,8 @@ const upNextTetrominoes = [
 
 function displayShape() {
 	// clear grid
-	displaySquares.forEach(square => {
-		square.classList.remove("tetromino");
-		square.classList.remove(shapeClassNames[nextRandom]);
-	});
+	displaySquares.forEach(square => { square.className = ""; });
+	// show next shape
 	upNextTetrominoes[nextRandom].forEach(index => {
 		displaySquares[displayIndex + index].classList.add("tetromino");
 		displaySquares[displayIndex + index].classList.add(shapeClassNames[nextRandom]);
