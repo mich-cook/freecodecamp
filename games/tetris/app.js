@@ -213,6 +213,7 @@ function displayShape() {
 
 startButton.addEventListener("click", () => {
     if (timerId === null) {
+        reset();
 		startButton.textContent = "Pause Game";
 		draw();
         timerId = new Date().getTime();
@@ -247,4 +248,17 @@ function gameOver() {
         timerId = null;
         startButton.textContent = "Start Game";
 	}
+}
+
+function reset() {
+    squares.forEach(square => {
+        // clear the classes
+        while (square.classList.length) {
+            square.classList.remove(square.classList.item(0));
+        }
+        // mark the basement as with taken class
+        for(let i = 0; i < 10; i += 1) {
+            squares[squares.length - 1 - i].classList.add("taken");
+        }
+    });
 }
