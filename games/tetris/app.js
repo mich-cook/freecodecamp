@@ -22,7 +22,7 @@ const scoreDisplay = document.querySelector("#score");
 const linesDisplay = document.querySelector("#lines");
 const startButton = document.querySelector("#start");
 let nextRandom = 0;
-let timerId;
+let timerId = null;
 let score = 0;
 let lines = 0;
 
@@ -98,13 +98,25 @@ function undraw() {
 	});
 };
 
-// timerId = setInterval(moveDown, 1000);
+let oldTimestamp;
 
-function moveDown() {
+function moveDown(timestamp) {
+    // game stopped (paused or dead). break RAF loop.
+    if (timerId === null) return;
+
+    let timestampOffset = timestamp - oldTimestamp;
+
+    if ((timestampOffset / 1000) < 1) {
+      window.requestAnimationFrame(moveDown);
+      return;
+    }
+
+    oldTimestamp = timestamp;
 	undraw();
 	currentPosition += width;
 	draw();
 	freeze();
+    window.requestAnimationFrame(moveDown);
 };
 
 function freeze() {
@@ -200,17 +212,17 @@ function displayShape() {
 };
 
 startButton.addEventListener("click", () => {
-	if (timerId) {
-		startButton.textContent = "Start Game";
-		clearInterval(timerId);
-		timerId = null;
-	} else {
+    if (timerId === null) {
 		startButton.textContent = "Pause Game";
 		draw();
-		timerId = setInterval(moveDown, 1000);
+        timerId = new Date().getTime();
 		nextRandom = Math.floor(Math.random()*theTetrominoes.length);
 		displayShape();
-	}
+        window.requestAnimationFrame(moveDown);
+    } else {
+		startButton.textContent = "Start Game";
+        timerId = null;
+    }
 });
 
 function addScore() {
@@ -232,6 +244,7 @@ function addScore() {
 function gameOver() {
 	if(current.some(index => squares[currentPosition + index].classList.contains("taken"))) {
 		scoreDisplay.innerHTML = "end";
-		clearInterval(timerId);
+        timerId = null;
+        startButton.textContent = "Start Game";
 	}
 }
