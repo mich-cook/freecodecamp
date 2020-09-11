@@ -10,6 +10,8 @@ const cors = require('cors');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
+const PORT = process.env.PORT || 3000;
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log(`Database connection complete`))
   .catch(err => console.log(err));
@@ -170,7 +172,7 @@ app.get("/api/exercise/log/", (req, res) => {
 
 // Not found middleware
 app.use((req, res, next) => {
-  return next({status: 404, message: 'not found'});
+  return next({status: 404, message: "not found"});
 });
 
 // Error Handling middleware
@@ -186,7 +188,7 @@ app.use((err, req, res, next) => {
   } else {
     // generic or custom error
     errCode = err.status || 500;
-    errMessage = err.message || 'Internal Server Error';
+    errMessage = err.message || `Internal Server Error`;
   }
   res.status(errCode).type('txt')
     .send(errMessage);
@@ -194,6 +196,6 @@ app.use((err, req, res, next) => {
 
 
 
-const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Your app is listening on port ' + listener.address().port);
+const listener = app.listen(PORT, () => {
+  console.log(`Your app is listening on port ${PORT}`);
 });
