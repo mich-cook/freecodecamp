@@ -10,14 +10,9 @@ const cors = require('cors')
 const mongo = require('mongodb');
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGO_OLD_URI || 'mongodb://localhost/exercise-track' )
-  .then(() => console.log(`DB connection established.`))
-  .catch(err => console.log(err));
-
-// not sure why they want this old way. maybe old packages. just rolling with it
-/* mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log(`Database connection complete`))
-  .catch(err => console.log(err)); */
+  .catch(err => console.log(err));
 
 const exerciseSchema = new mongoose.Schema({
   "description": { "type": String, "required": true },
